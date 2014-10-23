@@ -9,13 +9,15 @@ the Bittorrent Protocol Specification v1.0 which is available at:
 
 def __getUpto(stream, s):
 	'''
-	get contents upto character s
+	get contents upto character s whereas s is discarded
 	'''
 	out = []
 	c = stream.read(1)
 	while(s != c and 0 != len(c)):
 		out.append(c)
 		c = stream.read(1)
+	if (s != c and s is not None):
+		raise Exception('Invalid format: expected \'%s\' not found' % (s,))
 	return out
 
 def __getInt(stream):
@@ -32,7 +34,7 @@ def __getInt(stream):
 
 def __parseUpto(stream, s=None):
 	'''
-	parse contents upto character s
+	parse contents upto character s whereas s is discarded
 	'''
 	out = []
 	c = stream.read(1)
