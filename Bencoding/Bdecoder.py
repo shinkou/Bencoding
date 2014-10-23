@@ -37,12 +37,16 @@ def __parseUpto(stream, s=None):
 	out = []
 	c = stream.read(1)
 	while(s != c and 0 != len(c)):
+		# dictionary
 		if 'd' == c:
 			out.append(__parseDict(stream))
+		# list
 		elif 'l' == c:
 			out.append(__parseList(stream))
+		# integer
 		elif 'i' == c:
 			out.append(__getInt(stream))
+		# byte string
 		elif c in '0123456789':
 			i = int(c + ''.join(v for v in __getUpto(stream, ':')))
 			out.append(stream.read(i))
